@@ -1,2 +1,0 @@
-# GMSG200
-Kurset GMSG200

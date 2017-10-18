@@ -1,0 +1,24 @@
+Student: Jon Hidle Pedersen
+GMSG200 Exercise_GNSS_3
+Computer program to compute ECEF coordinates in
+WGS84 from Broadcast Ephemerides given in the 
+RINEX format.
+
+
+Epoke:
+y, m, d, h, m, s
+17 6 7 7 30 0
+
+ Satelittnummer me onsker koordinatar til:
+ 10
+ 12
+ 13
+ 15
+
+
+ Berekna ECEF-koordinat:
+Satelittnummer,    X   Y   Z:
+10.0000	14836497.0052	21996705.3762	489579.5678	
+12.0000	17524500.6657	17571824.6627	8976537.4388	
+13.0000	-6097290.0424	-16224793.5432	20106488.3235	
+15.0000	-8551504.6696	25251499.2175	-1619776.1726	

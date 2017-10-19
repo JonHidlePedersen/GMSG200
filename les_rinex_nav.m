@@ -2,6 +2,7 @@ function [h,n,antall] = les_rinex_nav(filnavn)
 % Leser navigasjonsmelding fra GPS kringkastet efemeride i RINEX-format.
 % - header informasjon ligg i h
 % - navigasjonsmelding ligg i n
+% - Ola Ovstedal      https://www.nmbu.no/ans/ola.ovstedal
 
 %% Opnar/undersokar fil:
 disp('Leser GPS navigasjonsfil i RINEX-format:');
@@ -83,7 +84,7 @@ while (feof(filnr) == 0)
     
 end
 
-fclose(filnr)
+fclose(filnr);
 
 
 

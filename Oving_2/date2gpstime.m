@@ -3,7 +3,7 @@ function [ week,tow ] = date2gpstime( year,month,day,hour,min,sec )
 % min,sec
 %   Origo for GPS-tid er 06.01.1980 00:00:00 UTC
 % 26.10.2012  : Laget funsksjonen  (OO)
-%
+% Author: Ola Øvstedal
 
 % Merknad: denne rutinen gjor bruk av Matlab datenum-funksjonen
 t0=datenum(1980,0,6);

@@ -1,11 +1,15 @@
 Denne zip-fila inneheld:
 - Hovedprogrammet:
 	GMSG200_excercise_GNSS_3_Jon_Hidle_Pedersen.m
+- RINEX-navigajonsfila brukt av hovedprogrammet:
+	T827158A.17N
 - Funksjonane brukt av hovedprogrammet
 	ECEF_from_RINEX.m
 	les_rinex_nav.m
-- Resultatfila fra hovedprogrammet
-	T827158A.17N
+	date2time.m
+- Resultatfila fra hovedprogrammet:
+	Resultat_Jon_Hidle_Pedersen.txt
+
 
 
 

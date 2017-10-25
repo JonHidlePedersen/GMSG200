@@ -2,7 +2,8 @@
 % Jon Hidle Pedersen
 % jon.hidle.pedersen@nmbu.no
 % Dette programmet reknar ut ECEF-koordinatane til ein satellitt basert pa
-% malingane henta fra ei RINEX-fil.
+% malingane henta fra ei RINEX-fil. Sja Günter Seeber Satellite Geodesy 
+% s226-228 for formelverk.
 
 clear
 clc

@@ -28,24 +28,15 @@ A_root = body(sat_num,18);            % Square root of the semi-major axis
 delta_n = body(sat_num,13);           % Mean motion difference
 M0 = body(sat_num,14);                % Mean anomaly at reference time
 eccentricity = body(sat_num,16);       % Eccentricity
-omega = body(sat_num,25);               % omega
-C_uc = body(sat_num,15);               % Cuc
-C_us = body(sat_num,17);               % Cus
-C_rc = body(sat_num,24);               % Crc
-C_rs = body(sat_num,12);               % Crs
-C_ic = body(sat_num,20);               % Cic
-C_is = body(sat_num,22);               % CIS
-i0 = body(sat_num,23);               % i0
-IDOT = body(sat_num,27);               % IDOT, i dot 
-OMEGA0 = body(sat_num,21);               % OMEGA
-OMEGADOT = body(sat_num,26);               % OMEGA DOT
 
 
 %% Berekna tid:
 t = t * [31556926, 2629743.83, 86400, 3600, 60, 1]'; % Einheit sekund
 t0e = t0e * [31556926, 2629743.83, 86400, 3600, 60, 1]'; % Einheit sekund
-
+% feil i tida skall vere minus
 tk = t - t0e;                         % Time elapsed since refference epoch
+
+
 %% Formlar:
 A = (A_root)^2;          % Semi-major axis
 n0 = sqrt(GM / A^3);     % Computed mean motion
@@ -58,11 +49,12 @@ for i = 1:50
     Ek = Mk + eccentricity * sin(Ek);
 end
 
+% Fasit -1.73 og -1.74 og 4.5 gang med 2pi eller noko.
+
 % Finn sann anomali, atan2 for rett kvadrant:
 vk_cos = (cos(Ek)-eccentricity)/(1-eccentricity*cos(Ek)); % True anomaly
 vk_sin = (sqrt(1-eccentricity^2)*sin(Ek))/(1-eccentricity*cos(Ek)); % True anomaly
 vk = atan2(vk_cos , vk_sin); % Sann anomali
-
 
 
 disp('------------------------')
@@ -72,11 +64,12 @@ disp('Satelitt nummer:')
 disp(sat_num)
 disp('Tidspunkt (sekund):')
 disp(t0e)
+disp('Midlere anomali:')
+disp(Mk)
 disp('Eksentrisk anomali:')
 disp(Ek)
 disp('Sann anomali:')
 disp(vk)
-
 
 
 

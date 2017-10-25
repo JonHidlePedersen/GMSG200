@@ -16,14 +16,14 @@ filnavn = 'T827158A.17N';
 %% Konstantar:
 sat_num = 4;
 
-t0e = [17, 06, 07, 07, 30, 00.00];   % Refferance epoke, fra oppgavetekst
+t = [17, 06, 07, 07, 30, 00.00];   % Tid, fra oppgavetekst
 
 GM = 3.986005E+14; % m3/s2 geocentric gravitational constant
 
 Omega_e = 7.2921151467E-5; % rad/s Earth rotation rate
 
 % Konstantar henta fra RINEX-fila:
-t = body(sat_num,2:7);
+t0e = body(sat_num,19);
 A_root = body(sat_num,18);            % Square root of the semi-major axis
 delta_n = body(sat_num,13);           % Mean motion difference
 M0 = body(sat_num,14);                % Mean anomaly at reference time
@@ -31,10 +31,9 @@ eccentricity = body(sat_num,16);       % Eccentricity
 
 
 %% Berekna tid:
-t = t * [31556926, 2629743.83, 86400, 3600, 60, 1]'; % Einheit sekund
-t0e = t0e * [31556926, 2629743.83, 86400, 3600, 60, 1]'; % Einheit sekund
-% feil i tida skall vere minus
+[week_t,t] = date2gpstime(2000 + t(1),t(2),t(3),t(4),t(5),t(6))%Hugs ar2000
 tk = t - t0e;                         % Time elapsed since refference epoch
+
 
 
 %% Formlar:
@@ -49,12 +48,10 @@ for i = 1:50
     Ek = Mk + eccentricity * sin(Ek);
 end
 
-% Fasit -1.73 og -1.74 og 4.5 gang med 2pi eller noko.
-
 % Finn sann anomali, atan2 for rett kvadrant:
 vk_cos = (cos(Ek)-eccentricity)/(1-eccentricity*cos(Ek)); % True anomaly
 vk_sin = (sqrt(1-eccentricity^2)*sin(Ek))/(1-eccentricity*cos(Ek)); % True anomaly
-vk = atan2(vk_cos , vk_sin); % Sann anomali
+vk = atan2(vk_sin , vk_cos); % Sann anomali
 
 
 disp('------------------------')
@@ -62,7 +59,7 @@ disp('Utrekningar:')
 disp('------------------------')
 disp('Satelitt nummer:')
 disp(sat_num)
-disp('Tidspunkt (sekund):')
+disp('Tidspunkt t0e :')
 disp(t0e)
 disp('Midlere anomali:')
 disp(Mk)

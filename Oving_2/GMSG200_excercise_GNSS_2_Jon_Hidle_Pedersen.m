@@ -1,4 +1,4 @@
-%% Excercise GNSS 3, GMSG200
+%% Excercise GNSS 2, GMSG200
 % Jon Hidle Pedersen
 % jon.hidle.pedersen@nmbu.no
 % Dette programmet reknar ut ECEF-koordinatane til ein satellitt basert pa
@@ -16,7 +16,7 @@ filnavn = 'T827158A.17N';
 
 
 %% Konstantar:
-t0e = [17, 06, 07, 07, 30, 00.00];   % Refferanse epoke
+t = [17, 06, 07, 07, 30, 00.00];   % Refferanse epoke
 
 GM = 3.986005E+14;              % m3/s2 geocentric gravitational constant
 
@@ -41,13 +41,13 @@ for sat_num = satellitt_nummer
     % Funksjonen hentar ut tidsdifferansen til malingane i sekund og finn
     % deretter den minste verdien samt indeksen til den verdien. Indeksen
     % brukast slik at den nermaste malinga blir brukt i ECEF-funksjonen.
-    sek_trans = [31556926, 2629743.83, 86400, 3600, 60, 1]';
-    [tids_differanse, indeks] = min(abs((satellitt_data(:,2:7)...
-                                   *sek_trans - t0e*sek_trans)));
     
+                           
+    [tids_differanse, indeks] = min(abs((satellitt_data(:,19)...
+               -date2gpstime(2000 +t(1),t(2),t(3),t(4),t(5),t(6))))):
     
     % Bereknar ECEF-koordinat
-    [X_k,Y_k,Z_k] = ECEF_from_RINEX(t0e, GM, Omega_e,...
+    [X_k,Y_k,Z_k] = ECEF_from_RINEX(t, GM, Omega_e,...
                                     satellitt_data(indeks,:));
     
     % Lagrar koordinatar i ei liste, indeksert med satelitt_nummer
@@ -71,7 +71,7 @@ fprintf(resultat_fil, '\n');
 
 fprintf(resultat_fil, '\nEpoke:');
 fprintf(resultat_fil, '\ny, m, d, h, m, s');
-fprintf(resultat_fil, '\n%d %d %d %d %d %d', t0e);
+fprintf(resultat_fil, '\n%d %d %d %d %d %d', t);
 fprintf(resultat_fil, '\n');
 fprintf(resultat_fil, '\n');
 
@@ -88,7 +88,6 @@ fprintf(resultat_fil, [repmat('%.4f\t', 1, size(ECEF_koord_liste, 2)) '\n'], ECE
 % Lukkar fila:
 fclose(resultat_fil);
 
-
-
-
-
+% % % Fasit sjekk:
+% % fasit = [-2258210.860, -15688622.854, 21326386.697]
+% % ECEF_koord_liste(1, 2:end) - fasit

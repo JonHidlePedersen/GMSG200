@@ -16,7 +16,7 @@ filnavn = 'T827158A.17N';
 
 
 %% Konstantar:
-t0e = [17, 06, 07, 07, 30, 00.00];   % Refferanse epoke
+t = [17, 06, 07, 07, 30, 00.00];   % Refferanse epoke
 
 GM = 3.986005E+14;              % m3/s2 geocentric gravitational constant
 
@@ -45,11 +45,11 @@ for sat_num = satellitt_nummer
     % brukast slik at den nermaste malinga blir brukt i ECEF-funksjonen.
     sek_trans = [31556926, 2629743.83, 86400, 3600, 60, 1]';
     [tids_differanse, indeks] = min(abs((satellitt_data(:,2:7)...
-                                   *sek_trans - t0e*sek_trans)));
+                                   *sek_trans - t*sek_trans)));
     
     
     % Bereknar ECEF-koordinat
-    [X_k,Y_k,Z_k] = ECEF_from_RINEX(t0e, GM, Omega_e,...
+    [X_k,Y_k,Z_k] = ECEF_from_RINEX(t, GM, Omega_e,...
                                     satellitt_data(indeks,:));
     
     % Lagrar koordinatar i ei liste, indeksert med satelitt_nummer
@@ -58,15 +58,22 @@ for sat_num = satellitt_nummer
 end
 
 
-
 %% Compute azimut and elevation angles to each satellite:
 % 3.196, side 128.
 % http://www.sattvengg.com/2013/10/azimuth-and-elevation-angle-antenna.html
 
+% Gjer om til ENU. Deretter rekne ut azimut med atan fra aust og deretter
+% eleveation fra lengden av upp???
+for i = 1:size(ECEF_koord_liste)
+    
+    dist_sat_reciver =  sum((T837_coordinates - ECEF_koord_liste(i,2:end)).^2)
 
-
-
-
+    G = 
+    L = 
+    
+    Elevation_angle = atan2((cos(G) * cos(L) - 0.1512), ...
+                            sqrt(1 - cos(G)^2 * cos(L)^2))
+    Azimuth = pi + atan2(tan(G), sin(L))
 
 %% Oving b):
 

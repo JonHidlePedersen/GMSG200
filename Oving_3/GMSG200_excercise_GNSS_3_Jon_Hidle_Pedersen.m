@@ -58,23 +58,40 @@ for sat_num = satellitt_nummer
 end
 
 
+%% Posisjon til motakar:
+% WGS84 parametrar (m)
+a = 6378137;
+b = 6356752.3142;
+[T837_lat,T837_lon,T837_h] = ECEF2geod(a,b,T837_coordinates(1), T837_coordinates(2), T837_coordinates(3));
+
+
 %% Compute azimut and elevation angles to each satellite:
 % 3.196, side 128.
 % http://www.sattvengg.com/2013/10/azimuth-and-elevation-angle-antenna.html
 
 % Gjer om til ENU. Deretter rekne ut azimut med atan fra aust og deretter
 % eleveation fra lengden av upp???
+% http://www.navipedia.net/index.php/Transformations_between_ECEF_and_ENU_coordinates
+    
+A_liste = []
+E_liste = []
 for i = 1:size(ECEF_koord_liste)
     
-    dist_sat_reciver =  sum((T837_coordinates - ECEF_koord_liste(i,2:end)).^2)
-
-    G = 
-    L = 
+    [e,n,u] = ECEF2enu(T837_lat,T837_lon,ECEF_koord_liste(i,2),ECEF_koord_liste(i,3),ECEF_koord_liste(i,4))
+   
     
-    Elevation_angle = atan2((cos(G) * cos(L) - 0.1512), ...
-                            sqrt(1 - cos(G)^2 * cos(L)^2))
-    Azimuth = pi + atan2(tan(G), sin(L))
+    dist_sat_reciver = (T837_coordinates - ECEF_koord_liste(i,2:end)) / abs(T837_coordinates - ECEF_koord_liste(i,2:end))
+    
+    E = asin(dist_sat_reciver * u)
+    Azimut = atan2((dist_sat_reciver*n),(dist_sat_reciver*e))
 
+    E_liste = [E_liste; E]
+    A_liste = [A_liste; Azimut]
+end
+
+
+polarplot(A_liste, E_liste)
+%polarplot(E_liste, A_liste)
 %% Oving b):
 
 

@@ -44,7 +44,7 @@ for sat_num = satellitt_nummer
     
                            
     [tids_differanse, indeks] = min(abs((satellitt_data(:,19)...
-               -date2gpstime(2000 +t(1),t(2),t(3),t(4),t(5),t(6))))):
+               -date2gpstime(2000 +t(1),t(2),t(3),t(4),t(5),t(6)))));
     
     % Bereknar ECEF-koordinat
     [X_k,Y_k,Z_k] = ECEF_from_RINEX(t, GM, Omega_e,...

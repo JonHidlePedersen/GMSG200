@@ -28,7 +28,6 @@ OMEGADOT = satellitt_data(26);         % OMEGA DOT
 
 
 %% Berekna tid:
-[week_t,t] = date2gpstime(2000 +t(1),t(2),t(3),t(4),t(5),t(6));%Hugs ar2000
 tk = t - t0e;                         % Time elapsed since refference epoch
 
 

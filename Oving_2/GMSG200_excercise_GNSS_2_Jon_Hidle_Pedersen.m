@@ -17,7 +17,7 @@ filnavn = 'T827158A.17N';
 
 %% Konstantar:
 t = [17, 06, 07, 07, 30, 00.00];   % Refferanse epoke
-
+t = date2gpstime(2000 +t(1),t(2),t(3),t(4),t(5),t(6)); % Refferanse i sek
 GM = 3.986005E+14;              % m3/s2 geocentric gravitational constant
 
 Omega_e = 7.2921151467E-5;      % rad/s Earth rotation rate
@@ -43,8 +43,7 @@ for sat_num = satellitt_nummer
     % brukast slik at den nermaste malinga blir brukt i ECEF-funksjonen.
     
                            
-    [tids_differanse, indeks] = min(abs((satellitt_data(:,19)...
-               -date2gpstime(2000 +t(1),t(2),t(3),t(4),t(5),t(6)))));
+    [tids_differanse, indeks] = min(abs((satellitt_data(:,19) - t)));
     
     % Bereknar ECEF-koordinat
     [X_k,Y_k,Z_k] = ECEF_from_RINEX(t, GM, Omega_e,...
